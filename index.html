@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Learn with Gemini</title>
+  <meta name="description" content="Explore AI-powered learning experiences with Learn with Gemini." />
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: linear-gradient(180deg, #0c1024 0%, #051937 55%, #0f1729 100%);
+      --card-bg: rgba(12, 16, 36, 0.75);
+      --text-primary: #f1f5ff;
+      --accent: #6ee7ff;
+      --accent-strong: #38bdf8;
+      --shadow: rgba(6, 11, 25, 0.45);
+      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      width: 100%;
+      padding: 1.5rem clamp(1.5rem, 4vw, 4rem);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      font-weight: 700;
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    main {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding: clamp(2rem, 5vw, 5rem);
+    }
+
+    .hero {
+      max-width: 960px;
+      display: grid;
+      gap: clamp(1.5rem, 3vw, 2.5rem);
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      backdrop-filter: blur(18px);
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: clamp(2rem, 4vw, 3.5rem);
+      box-shadow: 0 32px 80px var(--shadow);
+      border: 1px solid rgba(110, 231, 255, 0.18);
+    }
+
+    .hero-copy h1 {
+      margin: 0;
+      font-size: clamp(2.5rem, 6vw, 3.75rem);
+      line-height: 1.1;
+    }
+
+    .hero-copy p {
+      margin: 1rem 0 2rem;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: rgba(241, 245, 255, 0.85);
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.75rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #03111f;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 18px 44px rgba(56, 189, 248, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 24px 58px rgba(56, 189, 248, 0.45);
+    }
+
+    .info-card {
+      display: grid;
+      gap: 1.25rem;
+      padding: 1.5rem;
+      border-radius: 18px;
+      background: rgba(11, 19, 41, 0.65);
+      border: 1px solid rgba(110, 231, 255, 0.12);
+    }
+
+    .info-card h2 {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+
+    .pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .pill {
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(110, 231, 255, 0.14);
+      border: 1px solid rgba(110, 231, 255, 0.28);
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+    }
+
+    footer {
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: rgba(241, 245, 255, 0.6);
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav a {
+        margin: 0 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">Learn with Gemini</div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#modules">Modules</a>
+      <a href="#community">Community</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>Discover the Future of Learning</h1>
+        <p>
+          Learn with Gemini blends interactive lessons, creative exploration, and real-time AI scaffolding.
+          Build new skills faster with tailored guidance that adapts to your curiosity.
+        </p>
+        <a class="cta" href="#modules">Start Exploring</a>
+      </div>
+      <aside class="info-card" id="about">
+        <h2>What makes it different?</h2>
+        <p>
+          Each Gemini-powered journey starts with a simple prompt. From there, dynamic study paths help you
+          explore topics from fundamentals to advanced creation, while tracking your progress along the way.
+        </p>
+        <div class="pill-grid">
+          <span class="pill">Prompt-to-Project Labs</span>
+          <span class="pill">Adaptive Feedback</span>
+          <span class="pill">Hands-on Challenges</span>
+          <span class="pill">Community Showcase</span>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <section id="modules" class="modules" style="padding: 4rem clamp(2rem, 6vw, 6rem); background: #070e21;">
+    <h2 style="margin: 0 auto 2rem; max-width: 720px; font-size: clamp(1.75rem, 4vw, 2.25rem); text-align: center;">Choose your next adventure</h2>
+    <div style="display: grid; gap: 1.75rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); max-width: 1100px; margin: 0 auto;">
+      <article style="padding: 1.5rem; background: rgba(11, 19, 41, 0.75); border-radius: 18px; border: 1px solid rgba(110, 231, 255, 0.15);">
+        <h3 style="margin-top: 0;">Creative Coding</h3>
+        <p style="color: rgba(241, 245, 255, 0.75);">Code along with Gemini to generate visuals, music, and interactive stories. Perfect for curious builders.</p>
+      </article>
+      <article style="padding: 1.5rem; background: rgba(11, 19, 41, 0.75); border-radius: 18px; border: 1px solid rgba(110, 231, 255, 0.15);">
+        <h3 style="margin-top: 0;">AI Fundamentals</h3>
+        <p style="color: rgba(241, 245, 255, 0.75);">Understand the concepts behind large language models and apply them in guided micro-lessons.</p>
+      </article>
+      <article style="padding: 1.5rem; background: rgba(11, 19, 41, 0.75); border-radius: 18px; border: 1px solid rgba(110, 231, 255, 0.15);">
+        <h3 style="margin-top: 0;">Innovation Studio</h3>
+        <p style="color: rgba(241, 245, 255, 0.75);">Collaborate with peers, pitch an idea, and let Gemini help you prototype, iterate, and launch.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="community" style="padding: 4rem clamp(2rem, 6vw, 6rem); background: linear-gradient(180deg, #051937 0%, #0c1024 100%);">
+    <div style="max-width: 960px; margin: 0 auto; display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); align-items: center;">
+      <div>
+        <h2 style="margin-top: 0; font-size: clamp(1.75rem, 4vw, 2.25rem);">Grow together</h2>
+        <p style="color: rgba(241, 245, 255, 0.78);">A supportive learning circle where projects are shared, feedback is timely, and curiosity is celebrated.</p>
+      </div>
+      <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem;">
+        <li style="padding: 1rem 1.25rem; background: rgba(11, 19, 41, 0.68); border-radius: 14px; border: 1px solid rgba(110, 231, 255, 0.1);">Weekly live sessions with Gemini mentors</li>
+        <li style="padding: 1rem 1.25rem; background: rgba(11, 19, 41, 0.68); border-radius: 14px; border: 1px solid rgba(110, 231, 255, 0.1);">Project showcases with actionable feedback</li>
+        <li style="padding: 1rem 1.25rem; background: rgba(11, 19, 41, 0.68); border-radius: 14px; border: 1px solid rgba(110, 231, 255, 0.1);">Open-source templates to remix and build upon</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p>© <span id="year"></span> Learn with Gemini. Crafted with curiosity.</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
