@@ -6,15 +6,23 @@
   <title>Learn with Gemini</title>
   <meta name="description" content="Explore AI-powered learning experiences with Learn with Gemini." />
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
     :root {
-      color-scheme: light dark;
-      --bg: linear-gradient(180deg, #0c1024 0%, #051937 55%, #0f1729 100%);
-      --card-bg: rgba(12, 16, 36, 0.75);
-      --text-primary: #f1f5ff;
-      --accent: #6ee7ff;
-      --accent-strong: #38bdf8;
-      --shadow: rgba(6, 11, 25, 0.45);
-      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      --bg-overlay: repeating-linear-gradient(transparent 0 3px, rgba(255, 255, 255, 0.04) 3px 6px);
+      --bg-radial: radial-gradient(circle at 20% -10%, #47126b 0%, #210a3b 38%, #050012 100%);
+      --scanlines: repeating-linear-gradient(90deg, rgba(255, 113, 206, 0.07) 0 48px, rgba(1, 205, 254, 0.07) 48px 96px);
+      --panel-bg: rgba(16, 8, 48, 0.82);
+      --panel-border: #01cdfe;
+      --panel-border-alt: #ff71ce;
+      --text-primary: #f7f5d6;
+      --text-muted: #cfcbb3;
+      --accent-hot: #ff71ce;
+      --accent-cool: #01cdfe;
+      --accent-warm: #b3f21d;
+      --shadow-glow: 0 0 18px rgba(1, 205, 254, 0.45);
+      color-scheme: dark;
+      font-family: 'VT323', monospace;
     }
 
     * {
@@ -22,40 +30,91 @@
     }
 
     body {
+      position: relative;
       margin: 0;
       min-height: 100vh;
-      background: var(--bg);
+      background: var(--bg-overlay), var(--scanlines), var(--bg-radial);
       color: var(--text-primary);
+      font-family: 'VT323', monospace;
+      font-size: 20px;
+      line-height: 1.5;
+      text-shadow: 0 0 4px rgba(247, 245, 214, 0.55);
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(0, 0, 0, 0) 50%);
+      mix-blend-mode: overlay;
+      opacity: 0.45;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    a {
+      color: var(--accent-cool);
     }
 
     header {
-      width: 100%;
-      padding: 1.5rem clamp(1.5rem, 4vw, 4rem);
+      padding: 1.75rem clamp(1.5rem, 4vw, 4rem);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background: linear-gradient(90deg, rgba(5, 0, 20, 0.8), rgba(47, 5, 66, 0.48));
+      border-bottom: 4px solid var(--panel-border-alt);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55);
     }
 
     .brand {
-      font-weight: 700;
-      font-size: clamp(1.5rem, 3vw, 2.25rem);
-      letter-spacing: 0.08em;
+      font-family: 'Press Start 2P', cursive;
+      font-size: clamp(1.2rem, 2.8vw, 1.6rem);
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--accent-hot);
+      text-shadow: 0 0 8px rgba(255, 113, 206, 0.65), 0 0 18px rgba(1, 205, 254, 0.35);
+      animation: subtle-glow 3.2s ease-in-out infinite alternate;
+    }
+
+    nav {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
 
     nav a {
-      margin-left: 1.5rem;
+      position: relative;
+      padding: 0.35rem 1.1rem;
+      border: 2px solid var(--accent-cool);
+      border-radius: 8px;
       text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       color: var(--text-primary);
-      font-size: 0.95rem;
-      transition: color 0.2s ease;
+      box-shadow: inset 0 0 0 2px rgba(255, 113, 206, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      border: 1px dashed rgba(1, 205, 254, 0.6);
+      opacity: 0;
+      transition: opacity 0.2s ease;
     }
 
     nav a:hover {
-      color: var(--accent);
+      transform: translateY(-2px);
+      color: var(--accent-hot);
+      box-shadow: inset 0 0 0 2px rgba(179, 242, 29, 0.45), 0 0 18px rgba(1, 205, 254, 0.45);
+    }
+
+    nav a:hover::after {
+      opacity: 1;
     }
 
     main {
@@ -66,62 +125,72 @@
     }
 
     .hero {
-      max-width: 960px;
+      width: min(960px, 100%);
       display: grid;
       gap: clamp(1.5rem, 3vw, 2.5rem);
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      backdrop-filter: blur(18px);
-      background: var(--card-bg);
-      border-radius: 24px;
+      background: var(--panel-bg);
+      border: 4px solid var(--panel-border);
+      border-radius: 14px;
       padding: clamp(2rem, 4vw, 3.5rem);
-      box-shadow: 0 32px 80px var(--shadow);
-      border: 1px solid rgba(110, 231, 255, 0.18);
+      box-shadow: var(--shadow-glow), 0 0 0 3px rgba(255, 113, 206, 0.25);
     }
 
     .hero-copy h1 {
       margin: 0;
-      font-size: clamp(2.5rem, 6vw, 3.75rem);
-      line-height: 1.1;
+      font-family: 'Press Start 2P', cursive;
+      font-size: clamp(2rem, 5.5vw, 3rem);
+      line-height: 1.3;
+      color: var(--accent-warm);
+      text-shadow: 0 0 12px rgba(179, 242, 29, 0.6), 0 0 22px rgba(1, 205, 254, 0.3);
     }
 
     .hero-copy p {
-      margin: 1rem 0 2rem;
-      font-size: 1.1rem;
-      line-height: 1.6;
-      color: rgba(241, 245, 255, 0.85);
+      margin: 1.2rem 0 2rem;
+      color: var(--text-muted);
     }
 
     .cta {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.7rem;
       padding: 0.85rem 1.75rem;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-      color: #03111f;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent-hot), var(--accent-cool));
+      color: #130525;
       font-weight: 600;
       text-decoration: none;
-      box-shadow: 0 18px 44px rgba(56, 189, 248, 0.35);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 12px 24px rgba(1, 205, 254, 0.35), inset 0 -4px 0 rgba(0, 0, 0, 0.25);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
+    .cta::before {
+      content: '?';
+      font-size: 0.95em;
+    }
+
     .cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 24px 58px rgba(56, 189, 248, 0.45);
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 16px 34px rgba(255, 113, 206, 0.4);
     }
 
     .info-card {
       display: grid;
       gap: 1.25rem;
-      padding: 1.5rem;
-      border-radius: 18px;
-      background: rgba(11, 19, 41, 0.65);
-      border: 1px solid rgba(110, 231, 255, 0.12);
+      padding: 1.75rem;
+      border-radius: 12px;
+      background: rgba(3, 7, 31, 0.78);
+      border: 3px solid var(--panel-border-alt);
+      box-shadow: 0 0 0 3px rgba(1, 205, 254, 0.25), 0 0 24px rgba(255, 113, 206, 0.28);
     }
 
     .info-card h2 {
       margin: 0;
-      font-size: 1.3rem;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1.2rem;
+      color: var(--accent-hot);
     }
 
     .pill-grid {
@@ -133,27 +202,147 @@
     .pill {
       padding: 0.45rem 0.9rem;
       border-radius: 999px;
-      background: rgba(110, 231, 255, 0.14);
-      border: 1px solid rgba(110, 231, 255, 0.28);
+      background: rgba(255, 113, 206, 0.18);
+      border: 2px solid rgba(1, 205, 254, 0.6);
       font-size: 0.85rem;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section {
+      padding: clamp(3rem, 7vw, 5rem) clamp(1.75rem, 6vw, 6rem);
+    }
+
+    .modules {
+      background: linear-gradient(180deg, rgba(5, 0, 18, 0.85) 0%, rgba(32, 4, 58, 0.85) 100%);
+      border-top: 4px solid var(--accent-cool);
+      border-bottom: 4px solid var(--accent-hot);
+      box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.45);
+    }
+
+    .section-heading {
+      margin: 0 auto 2.5rem;
+      max-width: 720px;
+      text-align: center;
+      font-family: 'Press Start 2P', cursive;
+      font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-cool);
+    }
+
+    .module-grid {
+      display: grid;
+      gap: 1.75rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .module-card {
+      padding: 1.75rem;
+      background: rgba(12, 3, 30, 0.9);
+      border-radius: 12px;
+      border: 3px solid rgba(255, 113, 206, 0.65);
+      box-shadow: 0 0 0 3px rgba(1, 205, 254, 0.18), 0 10px 26px rgba(0, 0, 0, 0.45);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .module-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 0 3px rgba(179, 242, 29, 0.35), 0 14px 32px rgba(0, 0, 0, 0.6);
+    }
+
+    .module-card h3 {
+      margin-top: 0;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1rem;
+      color: var(--accent-warm);
+    }
+
+    .module-card p {
+      margin-bottom: 0;
+      color: var(--text-muted);
+    }
+
+    .community {
+      background: linear-gradient(180deg, rgba(18, 0, 36, 0.92) 0%, rgba(2, 0, 12, 0.92) 100%);
+    }
+
+    .community-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      align-items: start;
+    }
+
+    .community h2 {
+      margin-top: 0;
+      font-family: 'Press Start 2P', cursive;
+      font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+      color: var(--accent-hot);
+    }
+
+    .community p {
+      color: var(--text-muted);
+    }
+
+    .community-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .community-list li {
+      padding: 1.1rem 1.4rem;
+      background: rgba(6, 2, 24, 0.85);
+      border-radius: 12px;
+      border: 2px solid rgba(1, 205, 254, 0.65);
+      box-shadow: 0 0 0 2px rgba(255, 113, 206, 0.25);
     }
 
     footer {
       padding: 2rem;
       text-align: center;
-      font-size: 0.85rem;
-      color: rgba(241, 245, 255, 0.6);
+      font-size: 0.95rem;
+      color: rgba(247, 245, 214, 0.68);
+      background: rgba(2, 0, 12, 0.8);
+      border-top: 4px solid var(--accent-hot);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     @media (max-width: 600px) {
       header {
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.5rem;
+        text-align: center;
       }
 
-      nav a {
-        margin: 0 0.75rem;
+      nav {
+        justify-content: center;
+      }
+
+      .hero {
+        padding: 2rem 1.5rem;
+        border-width: 3px;
+      }
+
+      .info-card {
+        border-width: 2px;
+      }
+    }
+
+    @keyframes subtle-glow {
+      from {
+        filter: drop-shadow(0 0 4px rgba(255, 113, 206, 0.45));
+      }
+      to {
+        filter: drop-shadow(0 0 8px rgba(1, 205, 254, 0.55));
       }
     }
   </style>
@@ -194,40 +383,40 @@
     </section>
   </main>
 
-  <section id="modules" class="modules" style="padding: 4rem clamp(2rem, 6vw, 6rem); background: #070e21;">
-    <h2 style="margin: 0 auto 2rem; max-width: 720px; font-size: clamp(1.75rem, 4vw, 2.25rem); text-align: center;">Choose your next adventure</h2>
-    <div style="display: grid; gap: 1.75rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); max-width: 1100px; margin: 0 auto;">
-      <article style="padding: 1.5rem; background: rgba(11, 19, 41, 0.75); border-radius: 18px; border: 1px solid rgba(110, 231, 255, 0.15);">
-        <h3 style="margin-top: 0;">Creative Coding</h3>
-        <p style="color: rgba(241, 245, 255, 0.75);">Code along with Gemini to generate visuals, music, and interactive stories. Perfect for curious builders.</p>
+  <section id="modules" class="section modules">
+    <h2 class="section-heading">Choose your next adventure</h2>
+    <div class="module-grid">
+      <article class="module-card">
+        <h3>Creative Coding</h3>
+        <p>Code along with Gemini to generate visuals, music, and interactive stories. Perfect for curious builders.</p>
       </article>
-      <article style="padding: 1.5rem; background: rgba(11, 19, 41, 0.75); border-radius: 18px; border: 1px solid rgba(110, 231, 255, 0.15);">
-        <h3 style="margin-top: 0;">AI Fundamentals</h3>
-        <p style="color: rgba(241, 245, 255, 0.75);">Understand the concepts behind large language models and apply them in guided micro-lessons.</p>
+      <article class="module-card">
+        <h3>AI Fundamentals</h3>
+        <p>Understand the concepts behind large language models and apply them in guided micro-lessons.</p>
       </article>
-      <article style="padding: 1.5rem; background: rgba(11, 19, 41, 0.75); border-radius: 18px; border: 1px solid rgba(110, 231, 255, 0.15);">
-        <h3 style="margin-top: 0;">Innovation Studio</h3>
-        <p style="color: rgba(241, 245, 255, 0.75);">Collaborate with peers, pitch an idea, and let Gemini help you prototype, iterate, and launch.</p>
+      <article class="module-card">
+        <h3>Innovation Studio</h3>
+        <p>Collaborate with peers, pitch an idea, and let Gemini help you prototype, iterate, and launch.</p>
       </article>
     </div>
   </section>
 
-  <section id="community" style="padding: 4rem clamp(2rem, 6vw, 6rem); background: linear-gradient(180deg, #051937 0%, #0c1024 100%);">
-    <div style="max-width: 960px; margin: 0 auto; display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); align-items: center;">
+  <section id="community" class="section community">
+    <div class="community-inner">
       <div>
-        <h2 style="margin-top: 0; font-size: clamp(1.75rem, 4vw, 2.25rem);">Grow together</h2>
-        <p style="color: rgba(241, 245, 255, 0.78);">A supportive learning circle where projects are shared, feedback is timely, and curiosity is celebrated.</p>
+        <h2>Grow together</h2>
+        <p>A supportive learning circle where projects are shared, feedback is timely, and curiosity is celebrated.</p>
       </div>
-      <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem;">
-        <li style="padding: 1rem 1.25rem; background: rgba(11, 19, 41, 0.68); border-radius: 14px; border: 1px solid rgba(110, 231, 255, 0.1);">Weekly live sessions with Gemini mentors</li>
-        <li style="padding: 1rem 1.25rem; background: rgba(11, 19, 41, 0.68); border-radius: 14px; border: 1px solid rgba(110, 231, 255, 0.1);">Project showcases with actionable feedback</li>
-        <li style="padding: 1rem 1.25rem; background: rgba(11, 19, 41, 0.68); border-radius: 14px; border: 1px solid rgba(110, 231, 255, 0.1);">Open-source templates to remix and build upon</li>
+      <ul class="community-list">
+        <li>Weekly live sessions with Gemini mentors</li>
+        <li>Project showcases with actionable feedback</li>
+        <li>Open-source templates to remix and build upon</li>
       </ul>
     </div>
   </section>
 
   <footer>
-    <p>© <span id="year"></span> Learn with Gemini. Crafted with curiosity.</p>
+    <p>Copyright <span id="year"></span> Learn with Gemini. Crafted with curiosity.</p>
   </footer>
 
   <script>
@@ -235,3 +424,5 @@
   </script>
 </body>
 </html>
+
+
